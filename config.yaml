@@ -1,0 +1,52 @@
+# Multi-Model Stock Prediction Configuration
+# 支持LSTM和Transformer模型
+
+# 模型配置
+model:
+  type: "LSTM"  # 可选: "LSTM", "Transformer"
+
+  # LSTM 特定参数(推荐lr=0.004)
+  lstm:
+    input_size: 1
+    hidden_size1: 50
+    hidden_size2: 64
+    fc1_size: 32
+    fc2_size: 16
+    dropout: 0.0
+
+  # Transformer 特定参数(推荐lr为0.0002)
+  transformer:
+    input_size: 1
+    d_model: 128
+    nhead: 8
+    num_encoder_layers: 6
+    dim_feedforward: 512
+    dropout: 0.1
+    max_seq_len: 1000
+
+# 训练配置
+training:
+  sequence_length: 60
+  batch_size: 32
+  learning_rate: 0.0002
+  epochs: 100
+  early_stopping_patience: 30
+  random_seed: 42
+
+# 数据配置
+data:
+  file: "data/000001_daily_qfq_8y.csv"
+  use_blog_style: true
+  split_ratio: 0.9
+
+# 预测配置
+prediction:
+  days: 20
+  risk_free_rate: 0.03
+
+# 输出配置
+output:
+  dir: "output"
+  save_visualizations: true
+  save_model: true
+  save_config: true
